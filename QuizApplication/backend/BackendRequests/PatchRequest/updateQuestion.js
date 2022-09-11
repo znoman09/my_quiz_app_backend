@@ -1,13 +1,12 @@
 //This file is used to update a single question.
 
 const QuizSchema = require('../../SchemaModel/schema')
-const {shareUser} = require('../PostRequest/UserDataRequests/loginUserReques')
 
 //Updating Quiz
-const updateQuestion = async(req, res)=>{
-    const user = shareUser()
-    if(user!=null){
-        if(user.role==="admin"){
+const updateQuestion = async(req, res)=>{ 
+    console.log();("User is: ",req.role)
+    if(req.role!=null){
+        if(req.role==="admin"){
             const {testNum, queNum} = req.params
             const updateQue = await QuizSchema.findOneAndUpdate({"testNumber": testNum, "questionNumber":queNum},{...req.body})
             if(!updateQue){

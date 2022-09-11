@@ -2,6 +2,7 @@
 
 const bcrypt = require('bcryptjs')
 const LoginSchema = require('../../../SchemaModel/loginModel')
+const userWebToken = require('jsonwebtoken')
 
 //This user variable is supposed to be passed around to check for the roles.
 let user;
@@ -29,9 +30,9 @@ const logInUser = async(req, res)=>{
         if(verifyUser){
             const userPassValidation = await bcrypt.compare(password, verifyUser.password)
             if(userPassValidation){
-                user = verifyUser
-                console.log("User has been defined as\n\n",user);
-                return res.status(200).json(verifyUser)
+                const validationToken = userWebToken.sign(verifyUser.role, process.env.USER_ACCESS_KEY)
+                //console.log("User has been defined as\n\n",user);
+                return res.status(200).json(validationToken)
             }
             else
                 return res.status(200).json("Password is Incorrect"), user

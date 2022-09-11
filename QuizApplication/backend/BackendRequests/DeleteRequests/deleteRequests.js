@@ -3,13 +3,11 @@
 //2. Deleting a Single Question in a Specific Quiz Paper
 
 const QuizSchema = require('../../SchemaModel/schema')
-const {shareUser} = require('../PostRequest/UserDataRequests/loginUserReques')
 
 //Deleting a whole Quiz
 const deleteQuiz = async(req, res)=>{
-    const user = shareUser()
-    if(user!==null){
-        if(user.role === "admin"){
+    if(req.role!==null){
+        if(req.role === "admin"){
             const{test} = req.params        
             const deleteQuiz = await QuizSchema.remove({"testNumber": test})    //testNumber is used as an id here.
             if(!deleteQuiz){
@@ -26,9 +24,8 @@ const deleteQuiz = async(req, res)=>{
 
 //Deleting a Single Question 
 const deleteQuestion = async(req, res)=>{
-    const user = shareUser()
-    if(user!==null){
-        if(user.role === "admin"){
+    if(req.role!==null){
+        if(req.role === "admin"){
             const {test, que} = req.params
             const deleteQuestion = await QuizSchema.findOneAndDelete({"testNumber": test, "questionNumber": que})
             if(!deleteQuestion){
