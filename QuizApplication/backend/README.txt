@@ -20,4 +20,17 @@ These are the steps needed to start this project.
 
 I hope these instructions will prove to be helpful for you. I have added further comments in the code file as well.
 
+
+### FOR FRONTEND #####
+
+1. To take quiz there is no need for the user to sign in or sign up 
+
+2. To create a new quiz question and delete question use must sign in with admin account.
+
+3. For now I have added the option for anyone to be admin in the sign up form
+
+4. Typing admin and email and password and after clicking the signup button user will be able to login
+
+5. After logging in the user will be able to Create a new Quiz and delete the quiz.
+
 Thank you.

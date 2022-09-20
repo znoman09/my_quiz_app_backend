@@ -38,6 +38,7 @@ const singleQuestion = async(req, res)=>{
     res.status(200).json(quizQuestion)
 }
 
+
 module.exports = {
     getAllQuiz,
     singleQuiz,

@@ -8,6 +8,7 @@ function authenticateRole(req, res, next){
     if(token === null)
         return res.status(400).json("Token is null.")
     
+        console.log("Token=>", token);
     userWebToken.verify(token, process.env.USER_ACCESS_KEY, (err, role)=>{
         console.log("Made into verify");
         if(err)

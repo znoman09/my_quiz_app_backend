@@ -2,16 +2,19 @@
 
 const express = require('express')
 const requestsRoute = express.Router()
-const {authenticateRole} = require('./authenticateRole')
+const {authenticateRole} = require('../authenticateRole')
 const {getAllQuiz, singleQuiz, singleQuestion} = require('./GetRequests/getRequests')
-const {postQuestion} = require('./PostRequest/ApplicationDataRequests/postRequest')
+const {postQuestion, postQuizInfo} = require('./PostRequest/ApplicationDataRequests/postRequest')
 const {deleteQuestion, deleteQuiz} = require('./DeleteRequests/deleteRequests')
 const {signUpNewUser} = require('./PostRequest/UserDataRequests/postUserRequest')
 const {logInUser} = require('./PostRequest/UserDataRequests/loginUserReques')
 const {updateQuestion} = require('./PatchRequest/updateQuestion')
+const {getBasicQuizInformation } = require('./GetRequests/getBasicQuizInfo')
 
 
-let user;
+//Getting Quiz Test Number and Quiz Main Heading from BasicQuizSchema.
+requestsRoute.get('/basic', getBasicQuizInformation)
+
 //Getting all the Quiz Questions
 requestsRoute.get('/', getAllQuiz)
 
@@ -38,5 +41,8 @@ requestsRoute.delete('/:test', authenticateRole, deleteQuiz)
 
 //Updating a Question in a Quiz
 requestsRoute.patch('/:testNum/:queNum', authenticateRole, updateQuestion)
+
+//Posting Quiz Informatoin
+requestsRoute.post('/basic', authenticateRole, postQuizInfo)
 
 module.exports = requestsRoute

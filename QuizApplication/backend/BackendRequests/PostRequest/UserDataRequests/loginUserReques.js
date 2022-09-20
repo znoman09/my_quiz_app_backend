@@ -5,13 +5,13 @@ const LoginSchema = require('../../../SchemaModel/loginModel')
 const userWebToken = require('jsonwebtoken')
 
 //This user variable is supposed to be passed around to check for the roles.
-let user;
-const shareUser = ()=>{
-    if(!user)
-        return null;
-    else
-        return user
-}
+// let user;
+// const shareUser = ()=>{
+//     if(!user)
+//         return null;
+//     else
+//         return user
+// }
 
 //Logging in a User into the Database
 const logInUser = async(req, res)=>{
@@ -24,8 +24,8 @@ const logInUser = async(req, res)=>{
     else if(password.length < 4){
         return res.status(400).json("Password should atleast be of 4 digits.")
     }
-    //console.log(password);
-    try {   
+    console.log(password);
+    try {
         const verifyUser = await LoginSchema.findOne({"email": email})
         if(verifyUser){
             const userPassValidation = await bcrypt.compare(password, verifyUser.password)
@@ -45,8 +45,7 @@ const logInUser = async(req, res)=>{
     }    
 }
 
-user
 module.exports = {
     logInUser,
-    shareUser
+    //shareUser
 }
